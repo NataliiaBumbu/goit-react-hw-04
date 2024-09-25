@@ -1,10 +1,12 @@
 .searchForm {
 	display: flex;
 	justify-content: center;
-	background-color: #1014ff;
+	background-color: #05f709;
 	border-radius: 8px;
 	padding: 12px;
 	margin-bottom: 20px;
+	border-color: #05f709;
+	
 }
 
 .searchInput {
@@ -14,19 +16,28 @@
 	padding-block: 8px;
 	padding-inline: 12px;
 	min-width: 320px;
+	
+	
 }
 
 @media (prefers-color-scheme: light) {
 	.searchForm {
-		background-color: #f9f9f9;
+		background-color: #aff297;
 		color: #213547;
 	}
 	.searchForm button {
-		background-color: #fff;
+		background-color: #a8ed48;
 		
 	}
 	.searchForm button:hover {
-		background-color: #f9f9f9;
+		background-color: #07f633;
+		
+	}
+	
+	.searchInput:focus
+	{
+		background-color: #e1f2db;
+		outline-color: #07f633;
 		
 	}
 }

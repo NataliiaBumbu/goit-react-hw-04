@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import './App.css';
-import fetchGalleryPhotos from './api/photos-api';
+import PostsApiService from './api/photos-api';
 
 import SearchBar from './components/SearchBar/SearchBar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
@@ -33,7 +33,7 @@ const App = () => {
 			try {
 				setIsLoading(true);
 				setIsError(false);
-				const data = await fetchGalleryPhotos(queryValue, page);
+				const data = await PostsApiService(queryValue, page);
 				console.log('data: ', data);
 				if (data.total === 0) return;
 				setGallery((prevGallery) => {
