@@ -27,6 +27,7 @@
 	display: block;
 	margin-bottom: 20px;
 	margin-left: auto;
+	border-color: hsl(131, 94%, 50%);
 }
 .modalImg {
 	border-radius: 8px;
@@ -52,5 +53,9 @@
 	}
 	.modalBtn {
 		background-color: #fff;
+	}
+	.modalBtn:hover,
+	.modalBtn:focus {
+		background-color: #a8ed48;
 	}
 }
