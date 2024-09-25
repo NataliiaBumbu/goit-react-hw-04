@@ -1,19 +1,18 @@
-import { ThreeDots } from 'react-loader-spinner';
+import { Hearts } from 'react-loader-spinner';
 import styles from './Loader.module.css';
 
 const Loader = () => {
 	return (
 		<div className={styles.loader}>
-			<ThreeDots
-				visible={true}
-				height='80'
-				width='80'
-				color='#646cff'
-				radius='9'
-				ariaLabel='three-dots-loading'
-				wrapperStyle={{}}
-				wrapperClass=''
-			/>
+		<Hearts
+  height="100"
+  width="100"
+  color="#4fa94d"
+  ariaLabel="hearts-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+  />
 		</div>
 	);
 };

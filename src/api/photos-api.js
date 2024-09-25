@@ -1,36 +1,26 @@
 import axios from 'axios';
-const API_KEY = '45125188-29656ded7c12a384255e46c86';
-const API_URL = 'https://pixabay.com/api/?';
-export default class PostsApiService {
-	constructor() {
-	  this.searchQuery = '';
-	  this.page = 1;
-	}
-	async fetchPost() {
-	  const OPTIONS = new URLSearchParams({
-		key: API_KEY,
-		q: this.searchQuery,
-		image_type: 'photo',
-		orientation: 'horizontal',
-		safesearch: true,
-		page: this.page,
-		per_page: 12,
-	  });
-	  const response = await axios.get(`${API_URL}?${OPTIONS.toString()}`);
-	  this.incrementPage();
-	  return response.data;
-	}
-	get query() {
-	  return this.searchQuery;
-	}
-  
-	set query(newQuery) {
-	  this.searchQuery = newQuery;
-	}
-	incrementPage() {
-	  this.page += 1;
-	}
-	resetPage() {
-	  this.page = 1;
-	}
-  }
+
+const ACCESS_KEY = 'q72nAJPDJmd0hslaAYvxmPS4yn0SAT7HrdZetaHoRVI';
+
+axios.defaults.baseURL = 'https://api.unsplash.com';
+axios.defaults.headers = {
+	Authorization: `Client-ID ${ACCESS_KEY}`,
+	'Accept-Version': 'v1',
+};
+axios.defaults.params = {
+	per_page: 8,
+	orientation: 'landscape',
+};
+
+const fetchGalleryPhotos = async (query, page) => {
+	const response = await axios.get('/search/photos', {
+		params: {
+			query,
+			page,
+		},
+	});
+
+	return response.data;
+};
+
+export default fetchGalleryPhotos;

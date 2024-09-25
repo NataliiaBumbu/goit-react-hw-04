@@ -1,6 +1,7 @@
 import styles from './ImageCard.module.css';
 
 const ImageCard = ({ alt_description, urls, updateModalStateData }) => {
+
 	return (
 		<div
 			className={styles.cardWrapper}
