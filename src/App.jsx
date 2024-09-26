@@ -8,6 +8,7 @@ import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 
 import './App.css';
+import { Toaster } from 'react-hot-toast';
 
 
 const App = () => {
@@ -20,7 +21,7 @@ const App = () => {
 	const [modalImage, setModalImage] = useState('');
 	const [altDescription, setAltDescription] = useState('');
 	const [totalPages, setTotalPages] = useState(0);
-
+	
 
 
 
@@ -99,6 +100,13 @@ const App = () => {
 			{gallery.length > 0 && !isLoading && !isError && (
 				<LoadMoreBtn handleLoadMore={handleLoadMore} isActive={isActive} />
 			)}
+			<ImageModal
+				modalIsOpen={modalIsOpen}
+				closeModal={closeModal}
+				src={modalImage}
+				alt={altDescription}
+			/>
+			<Toaster position='top-right' reverseOrder={true} />
 	</div>
   )
 }

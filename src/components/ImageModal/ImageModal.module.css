@@ -36,13 +36,7 @@
 	display: block;
 }
 
-.modalText {
-	text-align: center;
-	text-transform: uppercase;
-	margin-top: 20px;
-	margin-bottom: 0;
-	font-weight: bold;
-}
+
 
 @media (prefers-color-scheme: light) {
 	.modal {

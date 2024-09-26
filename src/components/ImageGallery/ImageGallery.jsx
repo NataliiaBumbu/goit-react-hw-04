@@ -1,7 +1,7 @@
 import ImageCard from '../ImageCard/ImageCard';
 import styles from './ImageGallery.module.css';
 
-const ImageGallery = ({ gallery, openModal }) => {
+const ImageGallery = ({ gallery, openModal, modalStateData }) => {
 	return (
 		<ul className={styles.itemsContainer}>
 			{gallery.map(({ id, alt_description, urls }) => (
@@ -9,6 +9,7 @@ const ImageGallery = ({ gallery, openModal }) => {
 					<ImageCard
 						urls={urls}
 						alt_description={alt_description}
+					    modalStateData={modalStateData}
 					/>
 				</li>
 			))}
