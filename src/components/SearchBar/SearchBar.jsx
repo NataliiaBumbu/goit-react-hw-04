@@ -1,11 +1,10 @@
 import toast from 'react-hot-toast';
 import { Field, Form, Formik } from 'formik';
-
 import styles from './SearchBar.module.css';
 
 const initialValues = { query: '' };
 
-const SearchBar = ({ onSubmit }) => {
+const SearchBar = () => {
 	return (
 		<Formik
 			initialValues={initialValues}
