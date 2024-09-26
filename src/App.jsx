@@ -1,14 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import fetchGalleryPhotos from './api/photos-api';
 import SearchBar from './components/SearchBar/SearchBar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import ImageModal from './components/ImageModal/ImageModal';
 import Loader from './components/Loader/Loader';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
+import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
+
+import './App.css';
 
 
 const App = () => {
-	
+	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(false);
 	const [page, setPage] = useState(1);
 	const [queryValue, setQueryValue] = useState('');
@@ -16,9 +19,9 @@ const App = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [modalImage, setModalImage] = useState('');
 	const [altDescription, setAltDescription] = useState('');
-	
+	const [totalPages, setTotalPages] = useState(0);
 
-	const [isLoading, setIsLoading] = useState(false);
+
 
 
 	const ref = useRef();
@@ -39,7 +42,7 @@ const App = () => {
 				setGallery((prevGallery) => {
 					return [...prevGallery, ...data.results];
 				});
-				
+				setTotalPages(data.total_pages);
 			} catch (error) {
 				setIsError(true);
 			} finally {
@@ -68,7 +71,11 @@ const App = () => {
 		setAltDescription(alt);
 	};
 
+	const handleLoadMore = () => {
+		setPage(page + 1);
+	};
 	
+	const isActive = useMemo(() => page === totalPages, [page, totalPages]);
 
 
 
@@ -89,6 +96,9 @@ const App = () => {
 				src={modalImage}
 				alt={altDescription}
 			/>
+			{gallery.length > 0 && !isLoading && !isError && (
+				<LoadMoreBtn handleLoadMore={handleLoadMore} isActive={isActive} />
+			)}
 	</div>
   )
 }
