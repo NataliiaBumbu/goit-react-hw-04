@@ -1,11 +1,14 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import fetchGalleryPhotos from './api/photos-api';
 import SearchBar from './components/SearchBar/SearchBar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import ImageModal from './components/ImageModal/ImageModal';
+import Loader from './components/Loader/Loader';
+import ErrorMessage from './components/ErrorMessage/ErrorMessage';
+
 
 const App = () => {
-	const [isLoading, setIsLoading] = useState(false);
+	
 	const [isError, setIsError] = useState(false);
 	const [page, setPage] = useState(1);
 	const [queryValue, setQueryValue] = useState('');
@@ -13,17 +16,21 @@ const App = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [modalImage, setModalImage] = useState('');
 	const [altDescription, setAltDescription] = useState('');
-	const [totalPages, setTotalPages] = useState(0);
+	
+
+	const [isLoading, setIsLoading] = useState(false);
 
 
+	const ref = useRef();
 
 
 	useEffect(() => {
-		setIsLoading(true);
+		
 		if (queryValue === '') return;
 
 		const getData = async () => {
 			
+			try {
 				setIsLoading(true);
 				setIsError(false);
 				const data = await fetchGalleryPhotos(queryValue, page);
@@ -32,7 +39,12 @@ const App = () => {
 				setGallery((prevGallery) => {
 					return [...prevGallery, ...data.results];
 				});
-				setTotalPages(data.total_pages);
+				
+			} catch (error) {
+				setIsError(true);
+			} finally {
+				setIsLoading(false);
+			}
 		
 		};
 		getData();
@@ -44,7 +56,7 @@ const App = () => {
 		setPage(1);
 		
 	};
-	const isActive = useMemo(() => page === totalPages, [page, totalPages]);
+	
 	const openModal = () => {
 		setIsOpen(true);
 	};
@@ -61,10 +73,11 @@ const App = () => {
 
 
   return (
-	<div>
+	<div ref={ref}> 
 		<SearchBar onSubmit={handleQuery} />
-		{isLoading }
-	   {isError}
+		{isLoading && <Loader/>}
+	   {isError && <ErrorMessage />}
+	   
 	   <ImageGallery
 					gallery={gallery}
 					openModal={openModal}
