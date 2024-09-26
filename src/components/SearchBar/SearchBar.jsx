@@ -4,7 +4,7 @@ import styles from './SearchBar.module.css';
 
 const initialValues = { query: '' };
 
-const SearchBar = () => {
+const SearchBar = ({ onSubmit }) => {
 	return (
 		<Formik
 			initialValues={initialValues}
